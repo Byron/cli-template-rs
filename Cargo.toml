@@ -3,10 +3,12 @@ name = "foobar"
 version = "1.0.0"
 authors = ["Sebastian Thiel <byronimo@gmail.com>"]
 publish = false
+edition = "2018"
 
 [dependencies]
 failure = "0.1.1"
 failure-tools = "4.0.2"
+structopt = "0.2.14"
 
 [[bin]]
 name="foobar"

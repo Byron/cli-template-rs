@@ -1,22 +1,37 @@
-#[macro_use]
 extern crate failure;
 extern crate failure_tools;
 extern crate foobar;
+#[macro_use]
+extern crate structopt;
 
-use std::{env, fs::File};
+use failure::Error;
 use failure_tools::ok_or_exit;
-use failure::{Error, ResultExt};
+use structopt::StructOpt;
+
+mod options {
+    use std::path::PathBuf;
+
+    #[derive(Debug, StructOpt)]
+    #[structopt(name = "example", about = "An example of StructOpt usage.")]
+    pub struct Args {
+        /// Activate debug mode
+        #[structopt(short = "d", long = "debug")]
+        debug: bool,
+        /// Set speed
+        #[structopt(short = "s", long = "speed", default_value = "42")]
+        speed: f64,
+        /// Input file
+        #[structopt(parse(from_os_str))]
+        input: PathBuf,
+        /// Output file, stdout if not present
+        #[structopt(parse(from_os_str))]
+        output: Option<PathBuf>,
+    }
+}
 
 fn run() -> Result<(), Error> {
-    let filename = env::args().nth(1).ok_or_else(|| {
-        format_err!(
-            "USAGE: {} <input>\n\nWhere <input> is the input file with statements",
-            env::args().next().expect("program name")
-        )
-    })?;
-    let input_stream = File::open(&filename)
-        .with_context(|_| format_err!("Could not open '{}' for reading", filename))?;
-
+    let opt = options::Args::from_args();
+    println!("{:?}", opt);
     foobar::fun()
 }
 
