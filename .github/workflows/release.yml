@@ -79,11 +79,11 @@ jobs:
         build: [linux, linux-arm, macos, win-msvc, win-gnu, win32-msvc]
         include:
           - build: linux
-            os: ubuntu-18.04
+            os: ubuntu-latest
             rust: nightly
             target: x86_64-unknown-linux-musl
           - build: linux-arm
-            os: ubuntu-18.04
+            os: ubuntu-latest
             rust: nightly
             target: arm-unknown-linux-gnueabihf
           - build: macos
@@ -92,15 +92,15 @@ jobs:
             target: x86_64-apple-darwin
 #            no windows support, at least not with GUI (see https://github.com/Byron/dua-cli/issues/2)
           - build: win-msvc
-            os: windows-2019
+            os: windows-latest
             rust: nightly
             target: x86_64-pc-windows-msvc
           - build: win-gnu
-            os: windows-2019
+            os: windows-latest
             rust: nightly-x86_64-gnu
             target: x86_64-pc-windows-gnu
           - build: win32-msvc
-            os: windows-2019
+            os: windows-latest
             rust: nightly
             target: i686-pc-windows-msvc
 
@@ -111,7 +111,7 @@ jobs:
           fetch-depth: 1
 
       - name: Install packages (Ubuntu)
-        if: matrix.os == 'ubuntu-18.04'
+        if: matrix.os == 'ubuntu-latest'
         run: |
           ci/ubuntu-install-packages
 
@@ -121,7 +121,7 @@ jobs:
           ci/macos-install-packages
 
       - name: Patch Cargo.toml (Windows)
-        if: matrix.os == 'windows-2019'
+        if: matrix.os == 'windows-latest'
         shell: bash
         run: |
           cat Cargo.toml.windows-suffix >> Cargo.toml
@@ -190,7 +190,7 @@ jobs:
 
           cp {README.md,LICENSE,CHANGELOG.md} "$staging/"
 
-          if [ "${{ matrix.os }}" = "windows-2019" ]; then
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
             cp "target/${{ matrix.target }}/release/${{ env.BIN_NAME }}.exe" "$staging/"
             7z a "$staging.zip" "$staging"
             echo "::set-env name=ASSET::$staging.zip"
