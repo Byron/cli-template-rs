@@ -19,6 +19,11 @@ target/release/foobar: always
 lint: ## Run cargo clippy
 	cargo clippy
 
+unit-test: ## Run the library's unit-tests
+	cargo test
+
+test: lint unit-test journey-tests
+
 profile: target/release/foobar ## Profile the program using callgrind, needs linux or `make interactive-developer-environment-in-docker`
 	valgrind --callgrind-out-file=callgrind.profile --tool=callgrind  $< >/dev/null
 	callgrind_annotate --auto=yes callgrind.profile

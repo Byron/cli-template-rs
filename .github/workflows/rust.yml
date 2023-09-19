@@ -13,8 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run tests
-      run: make journey-tests
+    - uses: Swatinem/rust-cache@v2
+    - name: Run all tests
+      run: make test
     - name: fmt
       run: cargo fmt --all -- --check
     - name: clippy
