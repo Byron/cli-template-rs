@@ -3,7 +3,7 @@ name = "foobar"
 version = "1.0.0"
 authors = ["Sebastian Thiel <byronimo@gmail.com>"]
 publish = false
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 clap = { version = "4.4.3", features = ["derive"] }
