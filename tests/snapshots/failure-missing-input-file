@@ -1,0 +1,6 @@
+error: the following required arguments were not provided:
+  <INPUT>
+
+Usage: foobar <INPUT> [OUTPUT]
+
+For more information, try '--help'.

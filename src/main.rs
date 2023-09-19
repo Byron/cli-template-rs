@@ -21,8 +21,7 @@ mod options {
 }
 
 fn main() -> anyhow::Result<()> {
-    let opt = options::Args::parse();
-    println!("{:?}", opt);
-    let path = opt.output.unwrap_or("foo.txt".into());
-    foobar::fun(&path).with_context(|| format!("Could not handle file at path {}", path.display()))
+    let args = options::Args::parse();
+    foobar::fun(&args.input)
+        .with_context(|| format!("Could not handle file at path {}", args.input.display()))
 }

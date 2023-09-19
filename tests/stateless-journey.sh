@@ -9,7 +9,7 @@ source "$root/utilities.sh"
 snapshot="$root/snapshots"
 
 SUCCESSFULLY=0
-WITH_FAILURE=1
+WITH_FAILURE=2
 
 (with "no input file"
   it "fails with an error message" && {
