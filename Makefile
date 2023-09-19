@@ -31,7 +31,3 @@ journey-tests: target/debug/foobar ## Run journey-tests
 
 continuous-journey-tests: ## Run journey-tests, continuously
 	watchexec $(MAKE) journey-tests
-
-interactive-developer-environment-in-docker: ## Get a prompt into a docker container with all required tools
-	docker build -t $(docker_image) - < etc/developer.Dockerfile
-	docker run -v $$PWD:/volume -w /volume -it $(docker_image)

@@ -1,25 +1,13 @@
-#[macro_use]
-extern crate quick_error;
-
-mod error {
-    quick_error! {
-        #[derive(Debug)]
-        pub enum Error {
-            Bug(d: &'static str) {
-                display("{}", d)
-            }
-            Message(d: String) {
-                display("{}", d)
-            }
-            Io(err: std::io::Error) {
-                from()
-                cause(err)
-            }
-        }
-    }
+#[derive(Debug, thiserror::Error)]
+pub enum Error {
+    #[error("{0}")]
+    Bug(&'static str),
+    #[error("{0}")]
+    Message(String),
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
 }
 
-pub use error::Error;
 pub type Result<T> = std::result::Result<T, Error>;
 
 pub fn fun(path: &std::path::Path) -> Result<()> {
